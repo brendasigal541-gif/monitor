@@ -283,7 +283,7 @@ elif menu_selection == CAT_VERO:
     brand_check = st.text_input("הקלידי שם מותג באנגלית:", key="v_brand_final").strip().lower()
     if st.button("בדקי סיכון", key="v_brand_btn_final"):
         # סנכרון עם רשימת המותגים המקורית שבשורה 58 בקוד שלך
-        if brand_check in RO_LIST:
+        if brand_check in VERO_LIST:
             st.error(f"❌ זהירות! {brand_check.capitalize()} הוא מותג VeRO חסום לחלוטין באבטחת איביי!")
         else:
             st.success(f"✅ {brand_check.capitalize()} לא ברשימה השחורה הבסיסית. נראה בטוח לפרסום.")
