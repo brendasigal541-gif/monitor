@@ -312,40 +312,34 @@ elif menu_selection == CAT_TASKS:
         edited_tasks = st.data_editor(df_tasks, num_rows="dynamic", use_container_width=True)
         st.session_state.tasks = edited_tasks.to_dict('records')
 
-# --- מחולל הודעות מעוצב וסימטרי ---
-elif menu_selection == "מחולל הודעות":
-    st.subheader("✉️ מחולל הודעות")
+# 9. מחולל הודעות מעוצב, סימטרי וחסין דריסה במצב לבן ✨
+elif menu_selection == CAT_MSG:
+    st.subheader(CAT_MSG)
     st.write("צרי הודעות שירות לקוחות מקצועיות לחנות האיביי שלך בקליק אחד.")
     
-    # יצירת מכולה מעוצבת (Card) שמיישרת את כל האלמנטים ביחד
     with st.container(border=True):
         st.markdown("### 🛠️ הגדרת הודעה")
         
-        # תיבת הבחירה - עכשיו פרוסה על כל הרוחב באופן סימטרי
         msg_type = st.selectbox(
             "בחר את סוג ההודעה שברצונך לחולל:",
-            ["הודעת תודה לאחר קנייה ובקשת פידבק", "הודעת עדכון על עיכוב במשלוח", "תשובה ללקוח שרוצה לבטל הזמנה", "הודעת מעקב ומספר מעקב מעודכן"],
+            ["הודעת תודה לאחר קנייה ובקשת פידבק", "עדכון מספר מעקב ומשלוח", "התנצלות על עיכוב במשלוח", "תשובה ללקוח שרוצה לבטל הזמנה"],
             key="msg_type_select"
         )
         
         st.markdown("---")
         st.markdown("📝 **עריכת ההודעה שלך (שני חופשי):**")
         
-        # הגדרת הודעות ברירת מחדל
         default_text = "Hi dear! Thank you so much for your purchase. Your order is being processed and will be shipped very soon. ✨"
         if "עיכוב" in msg_type:
             default_text = "Hi dear, we wanted to update you that there is a slight delay with your shipment. We are doing our best to speed it up! 🙏"
-        elif "לבטל" in msg_type:
+        elif "ביטול" in msg_type or "לבטל" in msg_type:
             default_text = "Hi dear, I received your request to cancel the order. I am checking with our warehouse right now and will update you shortly."
         elif "מעקב" in msg_type:
-            default_text = "Hi dear, good news! Your order has been shipped. Here is your tracking number: [הדביקי כאן]. Track it anytime!"
+            default_text = "Hello! Exciting news - your order has been shipped! Your tracking number is: [הדביקי כאן]. Track it anytime!"
 
-        # תיבת הטקסט הרחבה - תואמת בול לתיבה העליונה
         user_edited_msg = st.text_area("", value=default_text, height=150, key="msg_text_area")
         
         st.markdown("<br>", unsafe_allow_html=True)
-        
-        # תיבת ההעתקה הירוקה והחגיגית בתחתית הכרטיס
         st.success("👇 פשוט סמני את הטקסט למעלה, העתיקי והדביקי ללקוח באיביי!")
 
 
