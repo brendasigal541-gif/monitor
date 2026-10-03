@@ -55,7 +55,7 @@ st.markdown("""
 st.title("🚀 Brenda's Dropshipping Suite 💻")
 st.write("🕵️ מרכז הבקרה האסטרטגי, המאובטח והמקצועי לחנות האיביי שלך")
 
-VERO_LIST = # --- מאגר מותגי על ענק: אמריקאי, סיני, ישראלי וגלובלי ---
+# --- מאגר מותגי על ענק: אמריקאי, סיני, ישראלי וגלובלי ---
 BASE_VERO = [
     # אמריקאים וגלובליים מובילים (USA & Global Giants)
     "apple", "microsoft", "google", "meta", "netflix", "walmart", "target", "costco", "starbucks", "mcdonalds",
