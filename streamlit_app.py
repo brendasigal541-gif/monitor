@@ -458,7 +458,7 @@ elif menu_selection == CAT_TRENDS_AI:
     st.write("מערכת בינה מלאכותית (Multimodal AI) הסורקת את האינטרנט בזמן אמת ומנתחת תמונות לשליפת 30-45 אייטם ספציפיקס.")
 
     # הגדרת מפתח ה-API החי של גוגל
-    GEMINI_API_KEY = "AQ.Ab8RN6IrkvD8iikpdsQ3ttHlYC_-SDigyYkkvS14Uctc-_xBYw"
+    GEMINI_API_KEY = st.secrets["GEMINI_KEY"]
     genai.configure(api_key=GEMINI_API_KEY)
 
     # -------------------------------------------------------------
