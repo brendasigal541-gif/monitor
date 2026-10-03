@@ -65,7 +65,7 @@ BASE_VERO = [
     "ray-ban", "oakley", "vans", "converse", "columbia", "the north face", "patagonia", "moncler", "ugg",
     "birkenstock", "gopro", "garmin", "fitbit", "marvel", "dc", "star wars", "hasbro", "mattel", "barbie",
     "hot wheels", "funko", "pokemon", "yugioh", "crayola", "sephora", "l'oreal", "mac cosmetics", "estee lauder",
-    "clinique", "lancome", "fenty beauty", "huda beauty", "nars", "too faced", "benefit", "tarte", "morphe",
+    "clinique", "lancome", "fenty beauty", "huda beauty", "nars", "too faced", "benefit", "tarte", "morphe", "yes", "hot", 
     
     # מותגי יוקרה, תכשיטים ושעונים (Luxury, Jewelry & Watches)
     "chanel", "gucci", "rolex", "pandora", "zara", "dior", "versace", "prada", "louis vuitton", "lv",
@@ -74,7 +74,7 @@ BASE_VERO = [
     "emporio armani", "valentino", "balenciaga", "yves saint laurent", "ysl", "givenchy", "alexander mcqueen",
     "boss", "hugo boss", "diesel", "fossil", "guess", "coach", "supreme", "off-white", "dr. martens", "seiko",
     "casio", "citizen", "tissot", "swatch", "bulgari", "bvlgari", "chopard", "audemars piguet", "patek philippe",
-    "kendra scott", "betsey johnson", "brighton", "lucky brand", "vera wang", "kate spade", "tory burch",
+    "kendra scott", "betsey johnson", "brighton", "lucky brand", "vera wang", "kate spade", "tory burch", "ysl", 
     
     # מותגים סיניים ועליאקספרס (China & AliExpress Top Brands)
     "xiaomi", "huawei", "oppo", "vivo", "realme", "oneplus", "anker", "ugreen", "baseus", "shein", "temu",
