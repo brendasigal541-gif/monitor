@@ -6,19 +6,15 @@ from datetime import datetime, timedelta
 # הגדרת דף ראשית ועיצוב צבעים כהה ומקצועי (סייבר ודרופשיפינג)
 st.set_page_config(page_title="Brenda's Dropshipping Suite", page_icon="🚀", layout="wide")
 
-# הזרקת עיצוב מותאם אישית (CSS) למראה סייבר כהה, נקי ומרווח עם ירוק מנטה יפה
+# הזרקת עיצוב מותאם אישית (CSS) לקריאות מושלמת גם במצב יום (בהיר) וגם במצב לילה (כהה)
 st.markdown("""
     <style>
-        /* רקע כללי של האתר - שחור פחם עמוק של מתכנתים */
-        .stApp {
-            background-color: #121212;
+        /* טקסטים וכותרות דינמיים - ישתנו אוטומטית לפי מצב הדפדפן לקריאות מקסימלית */
+        h1, h2, h3, p, label, span, .stMarkdown, .stMetric, .stSelectbox label, .stTextInput label, .stNumberInput label {
+            font-family: 'Arial', sans-serif !important;
         }
-        /* כותרות וטקסטים בצבע לבן נקי וירוק מנטה עדין */
-        h1, h2, h3, p, label, .stMarkdown, .stMetric {
-            color: #ffffff !important;
-            font-family: 'Arial', sans-serif;
-        }
-        /* עיצוב כפתורים - כחול סייבר חשמלי */
+        
+        /* עיצוב כפתורים יציב ובולט - כחול סייבר חשמלי עם טקסט לבן קריא תמיד */
         .stButton>button {
             background-color: #007acc !important;
             color: white !important;
@@ -26,31 +22,36 @@ st.markdown("""
             border: none !important;
             font-weight: bold !important;
             padding: 10px 25px !important;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.2) !important;
         }
         .stButton>button:hover {
             background-color: #005999 !important;
             color: white !important;
         }
-        /* עיצוב תיבות הקלט שיראו מעולה ב-Dark Mode */
-        .stNumberInput input, .stTextInput input, .stTextArea textarea {
-            background-color: #1e1e1e !important;
+        
+        /* תיבות קלט ומחשבונים - רקע אפור ניטרלי קבוע כדי שהטקסט בתוכן (ירוק מנטה) יבלוט תמיד */
+        .stNumberInput input, .stTextInput input, .stTextArea textarea, .stSelectbox div {
+            background-color: #2b2b2b !important;
             color: #2ecc71 !important;
-            border: 1px solid #333333 !important;
+            border: 1px solid #444444 !important;
+            font-weight: bold !important;
         }
-        /* עיצוב תיבות ההצלחה והמידע - ירוק מנטה עדין שלא מסנוור */
+        
+        /* עיצוב תיבות המידע וההצלחה (Alerts) - רקע כהה קבוע ומסגרת ירוקה כדי שלא ייבלעו ברקע לבן */
         .stAlert {
             border-radius: 10px !important;
             background-color: #1e1e1e !important;
-            border: 1px solid #2ecc71 !important;
-            color: #ffffff !important;
+            border: 2px solid #2ecc71 !important;
         }
-        .stAlert p {
+        
+        /* כפיית טקסט לבן וקריא בתוך תיבות המידע הכהות */
+        .stAlert p, .stAlert span, .stAlert div {
             color: #ffffff !important;
             font-weight: bold !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 st.title("🚀 Brenda's Dropshipping Suite 💻")
 st.write("🕵️ מרכז הבקרה האסטרטגי, המאובטח והמקצועי לחנות האיביי שלך")
