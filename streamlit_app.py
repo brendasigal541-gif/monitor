@@ -211,37 +211,75 @@ elif menu_selection == CAT_SEO:
         st.success(f"📏 אורך כותרת: {len(optimized_title)}/80 תווים. מוכן להעתקה!")
 
 # 5. מחולל מאפייני מוצר (AI)
-elif menu_selection == CAT_AI:
+if menu_selection == CAT_AI:
+    from google import genai
+    from PIL import Image
+    import json
+    import pandas as pd
+    
     st.subheader(CAT_AI)
-    uploaded_file = st.file_uploader("📸 גררי או העלי את תמונת המוצר לכאן (JPG/PNG):", type=["jpg", "png", "jpeg"])
+    uploaded_file = st.file_uploader("🖼️ גררי או העלי את תמונת המוצר לכאן (JPG/PNG):", type=["jpg", "png", "jpeg"])
+    
     if uploaded_file is not None:
-        st.image(uploaded_file, caption="המוצר המועלה לניתוח", width=250)
-        if st.button("🚀 הפעיל ניתוח סייבר ויזואלי ויצירתי"):
-            st.info("🕵️ הבוט סורק את מאפייני המוצר ומייצר רשימה מורחבת...")
-            file_name_lower = uploaded_file.name.lower()
-            detected_type = "Necklace & Pendant" if "neck" in file_name_lower or "pend" in file_name_lower else "Fashion Jewelry Accessory"
-            detected_material = "925 Sterling Silver / Premium Polished Alloy" if "silv" in file_name_lower else "High-Grade Anti-Tarnish Metal"
-            detected_shape = "Teardrop / Classic Geometric" if "tear" in file_name_lower or "drop" in file_name_lower else "Elegant Modern Cut"
+        image = Image.open(uploaded_file)
+        st.image(uploaded_file, caption="📸 המוצר שהועלה לניתוח ויזואלי ויצירתי", width=250)
+        
+        if st.button("🔮 הפעל ניתוח סייבר ויזואלי ויצירתי באמצעות AI"):
+            # שימוש במפתח המאובטח שלנו מהכספת
+            if 'NEW_GEMINI_API_KEY' in st.secrets:
+                client = genai.Client(api_key=st.secrets["NEW_GEMINI_API_KEY"])
+            else:
+                client = None
             
-            initial_data = {
-                "eBay Field (מאפיין איביי)": [
-                    "Brand", "Type", "Material", "Style", "Occasion", "Condition", 
-                    "Pendant Shape", "Chain Type", "Necklace Length", "Gender", "Theme", "Main Stone Shape", "Country of Origin"
-                ],
-                "Recommended Value (הערך להעתקה)": [
-                    "Unbranded", detected_type, detected_material, "Boho / Minimalist Elegant", 
-                    "Anniversary, Birthday, Gift, Party, Valentine's Day, Wedding", "New with tags", 
-                    detected_shape, "Cable / Link Chain", "18 in / Adjustable", "Women / Unisex",
-                    "Beauty & Luxury", "Teardrop / Brilliant Cut", "India / China"
-                ]
-            }
-            st.session_state.ai_specifics = pd.DataFrame(initial_data)
-            st.success("🎉 הניתוח היצירתי הושלם!")
-        if st.session_state.ai_specifics is not None:
-            st.write("📝 את יכולה לשנות ערכים, או ללחוץ על `+ Add row` בתחתית הטבלה כדי להוסיף שדות חדשים משלך:")
-            edited_spec_df = st.data_editor(st.session_state.ai_specifics, num_rows="dynamic", use_container_width=True)
-            st.session_state.ai_specifics = edited_spec_df
+            if client is None:
+                st.error("❌ מנוע ה-AI לא אותחל. ודאי שמפתח ה-API מוגדר בכספת ה-Secrets.")
+            else:
+                with st.spinner("🕵️ הבוט סורק את מאפייני המוצר ומייצר רשימה מורחבת..."):
+                    try:
+                        # פרומפט מלוטש שמבקש פורמט מובנה (Structured JSON)
+                        prompt_vision = (
+                            "Analyze this product image carefully for an e-commerce listing. "
+                            "Extract the following fields if visible or applicable: Brand, Type, Material, Style, Occasion, Condition, Gender, Theme, Country of Origin. "
+                            "Provide the response as a clean JSON object with two key-value pairs: "
+                            "'fields' (a list of string field names) and 'values' (a list of string values corresponding to each field). "
+                            "Do not include any markdown styling like ```json. Keep values professional, accurate, and optimized for eBay/Shopify. Write values in English."
+                        )
+                        
+                        response_vision = client.models.generate_content(
+                            model='gemini-3.8-flash',
+                            contents=[image, prompt_vision]
+                        )
+                        
+                        # חילוץ וניקוי הטקסט שהתקבל מגוגל
+                        raw_text = response_vision.text.strip()
+                        clean_text = raw_text.replace("```json", "").replace("```", "").strip()
+                        
+                        data_json = json.loads(clean_text)
+                        
+                        # בניית הטבלה מתוך ה-JSON
+                        initial_data = {
+                            "Ebay Field (מאפיין איביי)": data_json.get("fields", []),
+                            "Recommended Value (הערך המומלץ)": data_json.get("values", [])
+                        }
+                        
+                        st.session_state.ai_specifics = pd.DataFrame(initial_data)
+                        st.success("🎉 הניתוח היצירתי הושלם בהצלחה!")
+                        
+                    except Exception as e:
+                        # הגנה: אם ה-JSON נכשל או המשתנה לא מוגדר, נמנע קריסה ונציג את הטקסט הגולמי בבטחה
+                        st.warning("⚠️ ה-AI ניתח את התמונה אך החזיר טקסט חופשי במקום טבלה מובנית:")
+                        if 'response_vision' in locals() and response_vision.text:
+                            st.write(response_vision.text)
+                        else:
+                            st.error(f"לא ניתן היה לקבל תשובה תקינה מהמודל. פירוט השגיאה: {e}")
 
+    # הצגת עורך הטבלה הדינמי במידה והנתונים קיימים
+    if 'ai_specifics' in st.session_state and st.session_state.ai_specifics is not None:
+        st.write("📝 בתחתית הטבלה ניתן להוסיף שדות חדשים, לשנות ערכים או ללחוץ על השורות לעריכה:")
+        edited_spec_df = st.data_editor(st.session_state.ai_specifics, num_rows="dynamic", use_container_width=True)
+        st.session_state.ai_specifics = edited_spec_df
+
+   
 # 6. הליסטים שלי
 elif menu_selection == CAT_LIST:
     st.subheader(CAT_LIST)
