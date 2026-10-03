@@ -315,19 +315,19 @@ elif menu_selection == CAT_TASKS:
 # 9. מחולל הודעות מעוצב, סימטרי וחסין דריסה במצב לבן ✨
 elif menu_selection == CAT_MSG:
     st.subheader(CAT_MSG)
-    st.write("צרי הודעות שירות לקוחות מקצועיות לחנות האיביי שלך בקליק אחד.")
+    st.write("צרי הודעות שירות לקוחות מקצועיות לחנות האיביי שלך בקליק אחד")
     
     with st.container(border=True):
         st.markdown("### 🛠️ הגדרת הודעה")
         
         msg_type = st.selectbox(
-            "בחר את סוג ההודעה שברצונך לחולל:",
+            ":בחר את סוג ההודעה שברצונך לחולל",
             ["הודעת תודה לאחר קנייה ובקשת פידבק", "עדכון מספר מעקב ומשלוח", "התנצלות על עיכוב במשלוח", "תשובה ללקוח שרוצה לבטל הזמנה"],
             key="msg_type_select"
         )
         
         st.markdown("---")
-        st.markdown("📝 **עריכת ההודעה שלך (שני חופשי):**")
+        st.markdown("📝 **עריכת ההודעה שלך: (שני חופשי)**")
         
         default_text = "Hi dear! Thank you so much for your purchase. Your order is being processed and will be shipped very soon. ✨"
         if "עיכוב" in msg_type:
@@ -340,27 +340,27 @@ elif menu_selection == CAT_MSG:
         user_edited_msg = st.text_area("", value=default_text, height=150, key="msg_text_area")
         
         st.markdown("<br>", unsafe_allow_html=True)
-        st.success("👇 פשוט סמני את הטקסט למעלה, העתיקי והדביקי ללקוח באיביי!")
+        st.success("👇 !פשוט סמני את הטקסט למעלה, העתיקי והדביקי ללקוח באיביי")
 
 
 # 10. מתכנן שילוח
 elif menu_selection == CAT_SHIP:
     st.subheader(CAT_SHIP)
-    order_date = st.date_input("מתי הלקוח קנה את המוצר?", value=datetime.now())
-    shipping_days = st.number_input("כמה ימי עסקים הספק הבטיח למשלוח?", min_value=1, value=14)
+    order_date = st.date_input("?מתי הלקוח קנה את המוצר", value=datetime.now())
+    shipping_days = st.number_input("?כמה ימי עסקים הספק הבטיח למשלוח", min_value=1, value=14)
     estimated_delivery = order_date + timedelta(days=int(shipping_days))
     safe_dispute_date = estimated_delivery + timedelta(days=5)
-    st.success(f"📅 תאריך הגעה אחרון משוער ללקוח: {estimated_delivery.strftime('%d/%m/%Y')}")
-    st.warning(f"🛡️ תאריך בטוח לפתיחת תלונה מול הספק במקרה של איחור: {safe_dispute_date.strftime('%d/%m/%Y')}")
+    st.success(f"📅 :תאריך הגעה אחרון משוער ללקוח {estimated_delivery.strftime('%d/%m/%Y')}")
+    st.warning(f"🛡️ :תאריך בטוח לפתיחת תלונה מול הספק במקרה של איחור {safe_dispute_date.strftime('%d/%m/%Y')}")
 
 # 11. מגן VeRO
 elif menu_selection == CAT_VERO:
     st.subheader(CAT_VERO)
-    brand_check = st.text_input("הקלידי שם מותג באנגלית:", key="v_brand_final").strip().lower()
+    brand_check = st.text_input(":הקלידי שם מותג באנגלית", key="v_brand_final").strip().lower()
     if st.button("בדקי סיכון", key="v_brand_btn_final"):
         # סנכרון עם רשימת המותגים המקורית שבשורה 58 בקוד שלך
         if brand_check in VERO_LIST:
-            st.error(f"❌ זהירות! {brand_check.capitalize()} הוא מותג VeRO חסום לחלוטין באבטחת איביי!")
+            st.error(f"❌ !זהירות {brand_check.capitalize()} !הוא מותג VeRO חסום לחלוטין באבטחת איביי")
         else:
-            st.success(f"✅ {brand_check.capitalize()} לא ברשימה השחורה הבסיסית. נראה בטוח לפרסום.")
+            st.success(f"✅ {brand_check.capitalize()} לא ברשימה השחורה הבסיסית נראה בטוח לפרסום")
 
