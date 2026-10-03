@@ -543,15 +543,28 @@ elif menu_selection == CAT_TRENDS_AI:
         img = Image.open(gali_file)
         st.image(img, caption="התמונה המקורית שנקלטה במערכת", width=300)
         
-        if st.button("🚀 הרצי סריקה ויזואלית עמוקה בשניות"):
-            with st.spinner("🕵️ GALI AI מנתח את מאפייני התמונה ומחולל 30-45 אייטם ספציפיקס מורחבים..."):
-                try:
-                    model = genai.GenerativeModel('gemini-2.5-flash')
-                    prompt_image = "Look at this product image from AliExpress. Identify the item perfectly. Generate a comprehensive table of between 30 to 45 eBay Item Specifics for this exact item. Format your response strictly as a clean table or two columns: 'Ebay Field' and 'Value'. Brand should always be 'Unbranded'. MPN should be 'Does Not Apply'."
-                    response = model.generate_content([prompt_image, img])
-                    st.markdown("### 📊 תוצאות הניתוח הויזואלי של GALI AI (30-45 מאפיינים):")
-                    st.write(response.text)
-                    st.success("🎉 הנתונים נשלפו בהצלחה והותאמו למאגר המוצרים של איביי!")
-                except Exception as e:
-                    st.error(f"שגיאה בניתוח התמונה: {e}")
-
+    if st.button("🖼️ הרצי סריקה ויזואלית עמוקה בשניות"):
+            # אתחול הלקוח בצורה מאובטחת מתוך ה-Secrets
+            if 'NEW_GEMINI_API_KEY' in st.secrets:
+                client = genai.Client(api_key=st.secrets["NEW_GEMINI_API_KEY"])
+            else:
+                client = None
+            
+            if client is None:
+                st.error("❌ מנוע ה-AI לא אותחל. ודאי שמפתח ה-API מוגדר בכספת ה-Secrets.")
+            else:
+                with st.spinner("🧠 GALI AI מנתח את התמונה ומחולל 30-45 אייטם ספציפיקס מורחבים..."):
+                    try:
+                        prompt_image = "Look at this product image from AliExpress. Identify the item perfectly and extract 30-45 specific item specifics, technical details, materials, and colors. Format as a clean list in Hebrew, keep professional technical keywords in English if needed."
+                        
+                        # הצינור הנכון והמעודכן לספרייה החדשה
+                        response = client.models.generate_content(
+                            model='gemini-3.8-flash',
+                            contents=[img, prompt_image]
+                        )
+                        
+                        st.markdown("### 📸 GALI AI (30-45) תוצאות הניתוח הוויזואלי של:")
+                        st.write(response.text)
+                        st.success("🎉 הנתונים נשלפו בהצלחה והותאמו למאגר המוצרים של איביי!")
+                    except Exception as e:
+                        st.error(f"שגיאה בניתוח התמונה: {e}")
