@@ -481,7 +481,7 @@ elif menu_selection == CAT_TRENDS_AI:
                     prompt_trends = "Scan the internet for the top 10 winning dropshipping products right now. Return the data as a clean text list format. Respond in Hebrew for product names, keep keywords in English."
                     
                     response = client.models.generate_content(
-                        model='gemini-2.5-flash',
+                        model='gemini-3.8-flash',
                         contents=prompt_trends,
                     )
                     
