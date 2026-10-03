@@ -6,11 +6,11 @@ from datetime import datetime, timedelta
 # הגדרת דף ראשית ועיצוב צבעים כהה ומקצועי (סייבר ודרופשיפינג)
 st.set_page_config(page_title="Brenda's Dropshipping Suite", page_icon="🚀", layout="wide")
 
-# הזרקת עיצוב מותאם אישית (CSS) לקריאות מושלמת גם במצב יום (בהיר) וגם במצב לילה (כהה)
+# הזרקת עיצוב מותאם אישית (CSS) לקריאות מושלמת ומניעת דריסת מילים במצב לבן
 st.markdown("""
     <style>
-        /* טקסטים וכותרות דינמיים - ישתנו אוטומטית לפי מצב הדפדפן לקריאות מקסימלית */
-        h1, h2, h3, p, label, span, .stMarkdown, .stMetric, .stSelectbox label, .stTextInput label, .stNumberInput label {
+        /* הגדרת פונט ברור ונקי לכל הטקסטים בעברית */
+        h1, h2, h3, p, label, .stMarkdown {
             font-family: 'Arial', sans-serif !important;
         }
         
@@ -22,31 +22,29 @@ st.markdown("""
             border: none !important;
             font-weight: bold !important;
             padding: 10px 25px !important;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.2) !important;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1) !important;
         }
         .stButton>button:hover {
             background-color: #005999 !important;
             color: white !important;
         }
         
-        /* תיבות קלט ומחשבונים - רקע אפור ניטרלי קבוע כדי שהטקסט בתוכן (ירוק מנטה) יבלוט תמיד */
+        /* תיבות קלט ומחשבונים - רקע אפור בהיר עדין וטקסט כהה ובולט לקריאות מקסימלית ביום */
         .stNumberInput input, .stTextInput input, .stTextArea textarea, .stSelectbox div {
-            background-color: #2b2b2b !important;
-            color: #2ecc71 !important;
-            border: 1px solid #444444 !important;
+            background-color: #f8f9fa !important;
+            color: #1e1e1e !important;
+            border: 1px solid #cccccc !important;
             font-weight: bold !important;
         }
         
-        /* עיצוב תיבות המידע וההצלחה (Alerts) - רקע כהה קבוע ומסגרת ירוקה כדי שלא ייבלעו ברקע לבן */
+        /* עיצוב תיבות המידע וההצלחה (Alerts) במצב יום - רקע רך ומסגרת ירוקה ברורה */
         .stAlert {
             border-radius: 10px !important;
-            background-color: #1e1e1e !important;
+            background-color: #f1f9f5 !important;
             border: 2px solid #2ecc71 !important;
         }
-        
-        /* כפיית טקסט לבן וקריא בתוך תיבות המידע הכהות */
         .stAlert p, .stAlert span, .stAlert div {
-            color: #ffffff !important;
+            color: #155724 !important;
             font-weight: bold !important;
         }
     </style>
