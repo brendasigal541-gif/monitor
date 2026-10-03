@@ -451,15 +451,21 @@ elif menu_selection == CAT_SUPPLIER_CHECK:
 # 14. מנוע מוצרים מנצחים + סורק תמונות עליאקספרס GALI AI (אמיתי וחי!)
 # =================================================================
 elif menu_selection == CAT_TRENDS_AI:
-    import google.generativeai as genai
+    from google import genai
     from PIL import Image
     
     st.subheader("🔥 איתור מוצרים מנצחים ומנוע סריקה ויזואלי GALI AI")
     st.write("מערכת בינה מלאכותית (Multimodal AI) הסורקת את האינטרנט בזמן אמת ומנתחת תמונות לשליפת 30-45 אייטם ספציפיקס.")
 
-    # הגדרת מפתח ה-API החי של גוגל
-    GEMINI_API_KEY = st.secrets["GEMINI_KEY"]
-    genai.configure(api_key=GEMINI_API_KEY)
+    # אתחול הלקוח בצורה מאובטחת מתוך ה-Secrets עם השם החדש
+    client = None
+    try:
+        if "NEW_GEMINI_API_KEY" in st.secrets:
+            client = genai.Client(api_key=st.secrets["NEW_GEMINI_API_KEY"])
+        else:
+            st.error("❌ מפתח NEW_GEMINI_API_KEY חסר בהגדרות ה-Secrets של Streamlit.")
+    except Exception as vault_error:
+        st.error(f"❌ שגיאה בגישה לכספת ה-Secrets: {vault_error}")
 
     # -------------------------------------------------------------
     # חלק א': מנתח הטרנדים החי - 10 מוצרים מנצחים מהאינטרנט
@@ -467,15 +473,23 @@ elif menu_selection == CAT_TRENDS_AI:
     st.markdown("### 📈 1. סריקת רשת חיה: 10 המוצרים המנצחים הכי חמים כרגע")
     
     if st.button("🔎 סרוק את האינטרנט לאיתור טרנדים חמים"):
-        with st.spinner("🕵️ הבוט גולש ברשת ומאתר 10 מוצרים מנצחים..."):
-            try:
-                model = genai.GenerativeModel('gemini-3.8-flash')
-                prompt_trends = "Scan the internet for the top 10 winning dropshipping products right now. Return the data as a clean text list format. Respond in Hebrew for product names, keep keywords in English."
-                response = model.generate_content(prompt_trends)
-                st.write(response.text)
-                st.success("🎉 סריקת האינטרנט הושלמה בהצלחה!")
-            except Exception as e:
-                st.error(f"שגיאה: {e}")
+        if client is None:
+            st.error("❌ הפעולה נעצרה: מנוע ה-AI לא אותחל מכיוון שאין מפתח תקין.")
+        else:
+            with st.spinner("🕵️ הבוט גולש ברשת ומאתר 10 מוצרים מנצחים..."):
+                try:
+                    prompt_trends = "Scan the internet for the top 10 winning dropshipping products right now. Return the data as a clean text list format. Respond in Hebrew for product names, keep keywords in English."
+                    
+                    response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt_trends,
+                    )
+                    
+                    st.write(response.text)
+                    st.success("🎉 סריקת האינטרנט הושלמה בהצלחה!")
+                except Exception as e:
+                    st.error(f"שגיאה בתקשורת עם המודל: {e}")
+
 
     st.markdown("---")
     
@@ -494,7 +508,7 @@ elif menu_selection == CAT_TRENDS_AI:
         if st.button("🚀 הרצי סריקה ויזואלית עמוקה בשניות"):
             with st.spinner("🕵️ GALI AI מנתח את מאפייני התמונה ומחולל 30-45 אייטם ספציפיקס מורחבים..."):
                 try:
-                    model = genai.GenerativeModel('gemini-3.8-flash')
+                    model = genai.GenerativeModel('gemini-2.5-flash')
                     prompt_image = "Look at this product image from AliExpress. Identify the item perfectly. Generate a comprehensive table of between 30 to 45 eBay Item Specifics for this exact item. Format your response strictly as a clean table or two columns: 'Ebay Field' and 'Value'. Brand should always be 'Unbranded'. MPN should be 'Does Not Apply'."
                     response = model.generate_content([prompt_image, img])
                     st.markdown("### 📊 תוצאות הניתוח הויזואלי של GALI AI (30-45 מאפיינים):")
