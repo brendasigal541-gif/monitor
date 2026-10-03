@@ -55,7 +55,67 @@ st.markdown("""
 st.title("🚀 Brenda's Dropshipping Suite 💻")
 st.write("🕵️ מרכז הבקרה האסטרטגי, המאובטח והמקצועי לחנות האיביי שלך")
 
-VERO_LIST = ["adidas", "nike", "apple", "samsung", "chanel", "gucci", "rolex", "disney", "lego", "sony"]
+VERO_LIST = # --- מאגר מותגי על ענק: אמריקאי, סיני, ישראלי וגלובלי ---
+BASE_VERO = [
+    # אמריקאים וגלובליים מובילים (USA & Global Giants)
+    "apple", "microsoft", "google", "meta", "netflix", "walmart", "target", "costco", "starbucks", "mcdonalds",
+    "subway", "burger king", "dominos", "pizza hut", "kfc", "coca-cola", "pepsi", "ford", "chevrolet", "jeep",
+    "dodge", "tesla", "hp", "dell", "intel", "amd", "nvidia", "amazon", "ebay", "nike", "adidas", "puma",
+    "reebok", "under armour", "asics", "new balance", "skechers", "crocs", "timberland", "levis", "levi's",
+    "ray-ban", "oakley", "vans", "converse", "columbia", "the north face", "patagonia", "moncler", "ugg",
+    "birkenstock", "gopro", "garmin", "fitbit", "marvel", "dc", "star wars", "hasbro", "mattel", "barbie",
+    "hot wheels", "funko", "pokemon", "yugioh", "crayola", "sephora", "l'oreal", "mac cosmetics", "estee lauder",
+    "clinique", "lancome", "fenty beauty", "huda beauty", "nars", "too faced", "benefit", "tarte", "morphe",
+    
+    # מותגי יוקרה, תכשיטים ושעונים (Luxury, Jewelry & Watches)
+    "chanel", "gucci", "rolex", "pandora", "zara", "dior", "versace", "prada", "louis vuitton", "lv",
+    "michael kors", "mk", "calvin klein", "ck", "tommy hilfiger", "ralph lauren", "lacoste", "swarovski",
+    "cartier", "tiffany", "omega", "tag heuer", "hermes", "burberry", "fendi", "armani", "giorgio armani",
+    "emporio armani", "valentino", "balenciaga", "yves saint laurent", "ysl", "givenchy", "alexander mcqueen",
+    "boss", "hugo boss", "diesel", "fossil", "guess", "coach", "supreme", "off-white", "dr. martens", "seiko",
+    "casio", "citizen", "tissot", "swatch", "bulgari", "bvlgari", "chopard", "audemars piguet", "patek philippe",
+    "kendra scott", "betsey johnson", "brighton", "lucky brand", "vera wang", "kate spade", "tory burch",
+    
+    # מותגים סיניים ועליאקספרס (China & AliExpress Top Brands)
+    "xiaomi", "huawei", "oppo", "vivo", "realme", "oneplus", "anker", "ugreen", "baseus", "shein", "temu",
+    "aliexpress", "dhgate", "g-shock", "gshock", "bluedio", "li-ning", "lining", "fiio", "chuwi", "teclast",
+    "alldocube", "meizu", "zte", "tcl", "hisense", "haier", "gree", "bafang", "rockbros", "west biking",
+    "shimano", "sram", "topeak", "giyo", "schwalbe", "continental", "maxxis", "suntour", "fox racing",
+    "rockshox", "dji", "insta360", "sennheiser", "audio-technica", "shure", "rode", "boya", "saramonics",
+    "godox", "neewer", "yongnuo", "zhiyun", "feiyutech", "moza", "smallrig", "viltrox", "sigma", "tamron",
+    "sandisk", "kingston", "lexar", "pny", "transcend", "toshiba", "seagate", "wd", "western digital",
+    "crucial", "corsair", "razer", "logitech", "steelseries", "hyperx", "roccat", "redragon", "blitzwolf",
+    "romoss", "yoobao", "kuulaa", "essager", "toocki", "mcdodo", "joyroom", "nillkin", "spigen", "otterbox",
+    
+    # מותגים ישראליים מובילים (Top Israeli Brands)
+    "ahava", "sodastream", "teva", "strauss", "tnuva", "ossem", "elite", "super-pharm", "fox", "castro",
+    "delta", "golf", "honigman", "renuar", "twentyfourseven", "hoodies", "topten", "carolina lemke",
+    "opticana", "laline", "sacara", "careline", "dr. fischer", "keter", "rav bariach", "mul-t-lock",
+    "tami4", "electra", "tornado", "tadiran", "sano", "nikol", "waze", "fiverr", "wix", "monday",
+    
+    # תרגומים מלאים לעברית (Hebrew Transliterations)
+    "אדידס", "נייק", "נייקי", "אפל", "סמסונג", "שאנל", "גוצ'י", "רולקס", "דיסני", "לגו", "סוני",
+    "פנדורה", "זארה", "דיור", "סייקו", "קאסיו", "סיטיזן", "קנון", "וורו", "שין", "טמו", "עליאקספרס",
+    "וורסאצ'ה", "פראדה", "לואי ויטון", "מייקל קורס", "קלוין קליין", "טומי הילפיגר", "פומה", "ריבוק",
+    "ליוייס", "ריי באן", "סברובסקי", "שיומי", "וואווי", "אנקר", "יוגרין", "בסאוס", "אהבה", "סודהסטרים",
+    "טבע", "שטראוס", "תנובה", "אסם", "עלית", "סופר פארם", "פוקס", "קסטרו", "דלתא", "גולף", "רנואר",
+    "הודיס", "טופטן", "קרולינה למקה", "אופטיקנה", "ללין", "סקארה", "קרליין", "ד"ר פישר", "כתר",
+    "רב בריח", "מולטילוק", "תמי 4", "אלקטרה", "טורנדו", "תדיראן", "סנו", "ניקול", "ווייז", "וויקס"
+]
+
+# --- 🚀 מנוע אלגוריתמי המייצר אוטומטית מעל 2,000 שילובים מוגנים ---
+VERO_LIST = []
+for brand in BASE_VERO:
+    VERO_LIST.append(brand)
+    # הוספת וריאציות מסחריות נפוצות שקונים וספקים רושמים באיביי ועליאקספרס
+    VERO_LIST.append(f"{brand} case")
+    VERO_LIST.append(f"{brand} watch")
+    VERO_LIST.append(f"{brand} shoes")
+    VERO_LIST.append(f"{brand} official")
+    VERO_LIST.append(f"original {brand}")
+    VERO_LIST.append(f"luxury {brand}")
+    VERO_LIST.append(f"compatible with {brand}")
+
 
 @st.cache_data(ttl=3600)
 def get_usd_to_ils():
