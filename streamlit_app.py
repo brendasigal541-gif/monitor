@@ -246,7 +246,7 @@ if menu_selection == CAT_AI:
                         )
                         
                         response_vision = client.models.generate_content(
-                            model='gemini-3.8-flash',
+                            model='gemini-2.5-flash',
                             contents=[image, prompt_vision]
                         )
                         
@@ -559,7 +559,7 @@ elif menu_selection == CAT_TRENDS_AI:
                         
                         # הצינור הנכון והמעודכן לספרייה החדשה
                         response = client.models.generate_content(
-                            model='gemini-3.8-flash',
+                            model='gemini-2.5-flash',
                             contents=[img, prompt_image]
                         )
                         
